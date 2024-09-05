@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -8,8 +8,12 @@ import base64
 app = Flask(__name__)
 
 # Load the pre-trained emotion detection model
-model = load_model('D:\semester 5\\trials_and_ tests\group-video-chat\emotion_detection_model.h5')
+model = load_model(r'D:\semester 5\trials_and_ tests\emotion_detection_model.h5')
 emotion_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/process_frame', methods=['POST'])
 def process_frame():
